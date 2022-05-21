@@ -23,6 +23,7 @@ public class Main {
         task5();
         task6();
         task7();
+        task7_1();
     }
 
     //Task 3
@@ -78,16 +79,15 @@ public class Main {
         }
 
         else {
-            System.out.println("Your tax is: " + (14839.0 + (income-85528)*0.32));
+            System.out.println("Your personal income tax for" + income + "is: " + (14839.0 + (income-85528)*0.32));
         }
 
     }
 
     //Task 7
-    //Heads up...I might have written some outputs in too many steps...but the program works?
-    // I didn't know a more simple way to do this.
     static void task7() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the loan installments payment calculator");
         System.out.println("Please input the loan amount: ");
         double amount = scanner.nextDouble();
 
@@ -103,31 +103,79 @@ public class Main {
         int installment = scanner.nextInt(); {
             if ((installment > 6) && (installment < 48)) {
                 System.out.println("The installment number is acceptable.");
-            } else if ((installment <6) && (installment > 48)) {
+            } else if (installment > 48) {
                 System.out.println("The installment number is set to 36.");
             } else {
                 System.out.println("The minimum installment is 6 months.");
             }
         }
 
-        if ((amount > 10000) && ((installment < 6) || (installment > 48))) {
+        if ((amount > 10000) && ((installment < 6) && (installment > 48))) {
             System.out.println("Your monthly installment payment is: " + (5000/36));
             return;
         }
-        if ((amount > 100) && (amount < 10000) && (installment > 6 || installment < 12)) {
+        if ((amount > 100) && (amount < 10000) && (installment > 6 && installment < 12)) {
             System.out.println("Your monthly installment payment is: " + (amount + 0.025)/installment);
             return;
         }
-        if ((amount > 100) && (amount < 10000) && (installment > 13 || installment < 24)) {
+        if ((amount > 100) && (amount < 10000) && (installment > 13 && installment < 24)) {
             System.out.println("Your monthly installment payment is: " + (amount + 0.05)/installment);
             return;
         }
-        if ((amount > 100) && (amount < 10000) && (installment > 25 || installment < 48)) {
+        if ((amount > 100) && (amount < 10000) && (installment > 25 && installment < 48)) {
             System.out.println("Your monthly installment payment is: " + (amount + 0.1)/installment);
+            return;
+        }
+        if ((amount < 100) && (installment < 6)); {
+            System.out.println("Your monthly installment payment is: " + (100 + 0.025/6));
             return;
         }
 
         }
 
-        //Task 8
+        //Task 7 Corrected by David
+    static void task7_1() {
+        //Print welcome message
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the load installments payment calculator ");
+
+        //Read the amount and installments from user
+        System.out.println("Input load amount: ");
+        double amount = scanner.nextDouble();
+
+        System.out.println("Input number of installments: ");
+        int installments = scanner.nextInt();
+        if (amount < 100) {
+            System.out.println("Amount should be between 100.0 and 10000.0");
+            return;
+        } else if (amount > 10000) {
+            amount = 5000;
+            System.out.println("Amount set to 5000 because loan cannot exceed 10000.");
+        }
+
+        if (installments < 6) {
+            System.out.println("Installments should be between 6 & 48");
+            return;
+        } else if (installments > 48) {
+            installments = 36;
+        }
+
+        double payment_without_interest = amount / installments;
+
+        double interest;
+        //Create condition to calculate interest on load based on the number of installments
+        if (installments <= 12) {
+            interest = amount * 0.025;
+        } else if (installments <= 24) {
+            interest = amount * 0.05;
+        } else {
+            interest = amount * 0.1;
+        }
+
+        double payment_with_interest = interest / installments;
+
+        System.out.println("Amount to be paid per instalment with interest is: " + (payment_with_interest));
+
+    }
+
     }
